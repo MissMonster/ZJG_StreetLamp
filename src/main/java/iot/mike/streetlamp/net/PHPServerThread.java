@@ -47,6 +47,7 @@ public class PHPServerThread extends Thread{
 					NetUtil.LogPHPServer(order);
 					String[] orders = order.split("\\*");
 					for (String orderSingle : orders) {
+						orderSingle = orderSingle + "*";
 						//发送数据
 						NetUtil.LogPHPServer(orderSingle);
 						if (!lampBaseManager.sendOrder(orderSingle)) {
