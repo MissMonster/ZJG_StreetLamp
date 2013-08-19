@@ -1,6 +1,7 @@
 package iot.mike.streetlamp;
 
 import iot.mike.rmiserver.interfaces.RMI_Module_Interface;
+import iot.mike.streetlamp.hackway.HackWay;
 import iot.mike.streetlamp.lamps.LampBaseManager;
 import iot.mike.streetlamp.net.NetServer;
 import iot.mike.streetlamp.net.PHPServer;
@@ -24,6 +25,8 @@ public class Main_Server implements RMI_Module_Interface{
 	private NetServer netServer;
 	private SettingManager settingManager;
 	private PHPServer phpServer;
+	private HackWay hackWay;
+	
 	
 	public static void main(String[] args) throws RemoteException {
 		Main_Server main_Server = new Main_Server();
@@ -32,7 +35,7 @@ public class Main_Server implements RMI_Module_Interface{
 	}
 	
 	public void init(){
-		logger.log(Level.INFO, "系统初始化!");
+		hackWay = HackWay.getInstance();
 		sqlManager = SQLManager.getInstance();
 		settingManager = SettingManager.getInstance();
 		lampBaseManager = LampBaseManager.getInstance();
@@ -40,32 +43,36 @@ public class Main_Server implements RMI_Module_Interface{
 		druidPool = SQLDruidPool.getInstance();
 		netServer = NetServer.getInstance();
 		phpServer = PHPServer.getInstance();
+		logger.log(Level.INFO, "系统初始化!");
 	}
 	
 	public void start() throws RemoteException {
 		lampBaseManager.start();
 		netServer.start();
 		sqlManager.start();
-		logger.log(Level.INFO, "系统开始运行!");
 		phpServer.start();
+		hackWay.start();
+		logger.log(Level.INFO, "系统开始运行!");
 	}
 
 	public void end() throws RemoteException {
-		logger.log(Level.INFO, "系统结束!");
 		this.stop();
+		logger.log(Level.INFO, "系统结束!");
 		System.exit(0);
 	}
 
 	public void restart() throws RemoteException {
-		logger.log(Level.INFO, "系统重启!");
 		sqlManager.restart();
+		hackWay.restart();
+		logger.log(Level.INFO, "系统重启!");
 	}
 
 	public void stop() throws RemoteException {
-		logger.log(Level.INFO, "系统停止!");
 		phpServer.shutdown();
 		netServer.shutdown();
 		sqlManager.shutdown();
+		hackWay.shutdown();
+		logger.log(Level.INFO, "系统停止!");
 	}
 
 	public String getStatus() throws RemoteException {

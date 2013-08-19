@@ -17,7 +17,9 @@ public class NetServerThread extends Thread{
 		threadPool = ThreadPool.getInstance();
 	}
 	
-	
+	/**
+	 * 跑起来
+	 */
 	public void run() {
 		try{
 			serverSocket = new ServerSocket(Setting.ServerPort_int);
