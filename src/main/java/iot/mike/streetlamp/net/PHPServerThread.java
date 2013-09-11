@@ -26,35 +26,39 @@ public class PHPServerThread extends Thread{
 		try{
 			serverSocket = new ServerSocket(Setting.PHPPort_int);
 			while (!this.isInterrupted()) {
-				Socket client = serverSocket.accept();
-				InputStream stream = client.getInputStream();
-				BufferedReader reader = new 
-						BufferedReader(new InputStreamReader(stream));
-				String order = "";
-				String order_tmp = "";
-				try {
-					while (!(order_tmp = reader.readLine()).equals("null")) {
-						order = order + order_tmp;
+				try{
+					Socket client = serverSocket.accept();
+					InputStream stream = client.getInputStream();
+					BufferedReader reader = new 
+							BufferedReader(new InputStreamReader(stream));
+					String order = "";
+					String order_tmp = "";
+					try {
+						while (!(order_tmp = reader.readLine()).equals("null")) {
+							order = order + order_tmp;
+						}
+					} catch (Exception e) {
+						logger.log(Level.INFO, "PHP退出连接");
 					}
-				} catch (Exception e) {
-					logger.log(Level.INFO, "PHP退出连接");
-				}
-				order = order.replaceAll("null", "");
-				logger.log(Level.INFO, "PHP指令:" + order);
-				//判断是不是数据读到
-				if (order.charAt(order.length() - 1) == '*') {
-					//写入日志
-					NetUtil.LogPHPServer(order);
-					String[] orders = order.split("\\*");
-					for (String orderSingle : orders) {
-						orderSingle = orderSingle + "*";
-						//发送数据
-						NetUtil.LogPHPServer(orderSingle);
-						if (!lampBaseManager.sendOrder(orderSingle)) {
-							//写入错误数据
-							NetUtil.writeError(orderSingle);
+					order = order.replaceAll("null", "");
+					logger.log(Level.INFO, "PHP指令:" + order);
+					//判断是不是数据读到
+					if (order.charAt(order.length() - 1) == '*') {
+						//写入日志
+						NetUtil.LogPHPServer(order);
+						String[] orders = order.split("\\*");
+						for (String orderSingle : orders) {
+							orderSingle = orderSingle + "*";
+							//发送数据
+							NetUtil.LogPHPServer(orderSingle);
+							if (!lampBaseManager.sendOrder(orderSingle)) {
+								//写入错误数据
+								NetUtil.writeError(orderSingle);
+							}
 						}
 					}
+				}catch (Exception e){
+					e.printStackTrace();
 				}
 			}
 		}catch(Exception e){
