@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LampUtil {
-	private LampUtil(){}
+	private LampUtil() {}
 	private static SQLManager sqlManager = SQLManager.getInstance();
 	private static Logger logger = Logger.getLogger("Lamp");
 	private static LampBaseManager lampBaseManager = LampBaseManager.getInstance();

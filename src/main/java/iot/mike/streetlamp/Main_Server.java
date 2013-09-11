@@ -12,6 +12,7 @@ import iot.mike.streetlamp.threadpool.ThreadPool;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +27,6 @@ public class Main_Server implements RMI_Module_Interface{
 	private SettingManager settingManager;
 	private PHPServer phpServer;
 	private HackWay hackWay;
-	
 	
 	public static void main(String[] args) throws RemoteException {
 		Main_Server main_Server = new Main_Server();
