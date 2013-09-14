@@ -35,7 +35,7 @@ public class LampBaseManager {
 	public void addLampBase(String key){
 		for (LampBase lampBase : lampBases) {
 			if (lampBase.getkey().equals(key)) {
-				logger.log(Level.INFO, key + "已经存在");
+				//logger.log(Level.INFO, key + "已经存在");
 				return;
 			}
 		}

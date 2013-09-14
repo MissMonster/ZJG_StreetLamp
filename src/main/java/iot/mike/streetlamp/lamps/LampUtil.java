@@ -258,7 +258,8 @@ public class LampUtil {
 		String key = getKeyID(order);
 		String name = order.substring(4, key.length() + 5);
 		//System.out.println(name);
-		order = order.replaceAll(name, "");
+		order = order.replaceFirst(name, "");
+		//System.out.println(order);
 		return order;
 	}
 	
@@ -268,10 +269,15 @@ public class LampUtil {
 	 * @return 消息标号 string[]
 	 */
 	public static String[] getLamps(String order){
+		//System.out.println(order);
 		String data = removeKey(order);
+		//System.out.println(data);
 		data = data.substring(5, data.length() - 6);
 		//System.out.println(data);
 		String LampsID[] = data.split(";");
+		for (String string : LampsID) {
+			//System.out.println(string);
+		}
 		return LampsID;
 	}
 }
