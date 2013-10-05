@@ -32,7 +32,15 @@ public class LampUtilTest extends TestCase{
 		
 		//assertEquals(DealType.LampHeartBeat, LampUtil.classifyOrder("#2018cesfj001de*"));
 		//assertEquals("cesfj001", LampUtil.getKeyID("#2018cesfj001de*"));
-		String a = "2";
+		
+		char[] d = new char[32];
+		d[0] = (char)255;
+		d[1] = (char)49;
+		d[2] = (char)68;
+		System.out.println(new String(d));
+		System.out.println(d[0]);
+		System.out.println((Integer.toBinaryString(d[0])));
+		String a = "240";
 		String c = String.valueOf(Integer.toBinaryString((Integer.valueOf(a))));
 		int size = c.length();
 		if (c.length() != 8) {
@@ -42,5 +50,7 @@ public class LampUtilTest extends TestCase{
 		}
 		System.out.println(c);
 		
+		char achar = (char)255;
+		System.out.println(achar + "" + (int)achar);
 	}
 }

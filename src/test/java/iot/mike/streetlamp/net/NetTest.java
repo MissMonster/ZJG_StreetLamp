@@ -7,6 +7,11 @@ import java.net.ServerSocket;
 import junit.framework.TestCase;
 
 public class NetTest extends TestCase {
+	
+	public void testNet() throws IOException {
+		main(new String[2]);
+	}
+	
 	public static void main(String[] args) throws IOException{
 		ServerSocket serverSocket = new ServerSocket(9400);
 		InputStream reader = serverSocket.accept().getInputStream();
